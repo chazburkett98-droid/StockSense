@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventory · Bargetown Market</title>
+  <meta name="description" content="View and manage your store’s full inventory in one place."/>
+  <link rel="stylesheet" href="dashboard.css"/><link rel="stylesheet" href="inventory.css"/><link rel="stylesheet" href="market.css"/>
+</head>
+<body class="inventory-page">
+  <div class="app">
+    <aside>
+<a class="brand" href="index.html"><span class="brand-mark">B</span><span>Bargetown<small>MARKET WORKSPACE</small></span></a>
+<div class="store"><div class="eyebrow">Your store</div><b>Bargetown Market</b><span>Evansville, Indiana · 47708</span></div>
+<div><p class="nav-heading">Workspace</p><nav aria-label="Main navigation"><a href="index.html">Overview</a><a class="active" aria-current="page" href="inventory.html">Inventory</a><a href="suppliers.html">Find suppliers</a></nav></div>
+<div class="sidebar-note"><span class="owner-avatar">BM</span><div><b>Bargetown Market</b><br><span>Store owner</span></div></div></aside>
+    <div class="inventory-shell">
+      <div class="utility-bar"><span class="utility-breadcrumb">Workspace <span>/</span> Inventory</span><div><span class="store-indicator">Bargetown Market</span><span class="owner-avatar">BM</span></div></div>
+      <main id="inventoryMain">
+        <header class="topbar"><div><div class="eyebrow">Store records</div><h1>Inventory</h1><p class="sub">Everything in your store, in one place.</p></div><div class="actions"><button class="action-btn" id="importBtn">Import stock list</button><button class="primary-btn" id="addBtn"><span aria-hidden="true">+</span> Add product</button></div></header>
+        <div class="inventory-data-note" id="dataNote"></div>
+        <section class="inventory-metrics" id="inventoryMetrics" aria-label="Inventory totals"></section>
+        <section class="inventory-summary-grid">
+          <div class="inventory-panel"><div class="section-heading"><div><h2>Stock by category</h2><p>Value of the stock you have</p></div><span class="small-label">At cost</span></div><div class="category-breakdown" id="categoryBreakdown"></div></div>
+          <div class="inventory-panel stock-status-panel"><div class="section-heading"><div><h2>Stock levels</h2><p>A quick look at availability</p></div></div><div id="stockLevels"></div><p class="status-note">Low stock means at or below your minimum stock count.</p></div>
+        </section>
+        <section class="inventory-panel inventory-catalog" aria-labelledby="catalogTitle">
+          <div class="section-heading"><div><h2 id="catalogTitle">All products <span id="productCount" class="count-pill"></span></h2><p>Current stock, cost, and shelf location</p></div><button class="action-btn" id="exportBtn">Export CSV</button></div>
+          <div class="inventory-filters"><label class="search-field"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg><input type="search" id="inventorySearch" placeholder="Search products, SKU, or location" aria-label="Search inventory"/></label><select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select><select id="statusFilter" aria-label="Filter by stock status"><option value="">All stock levels</option><option>In stock</option><option>Low stock</option><option>Out of stock</option></select><select id="inventorySort" aria-label="Sort products"><option value="name">Name: A–Z</option><option value="quantity">Lowest stock first</option><option value="value">Highest value first</option></select></div>
+          <div class="inventory-table-wrap"><table class="inventory-table"><thead><tr><th scope="col">Product</th><th scope="col">Category</th><th scope="col">On hand</th><th scope="col">Unit cost</th><th scope="col">Stock value</th><th scope="col">Location</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Edit product</span></th></tr></thead><tbody id="inventoryRows"></tbody></table></div>
+          <div class="catalog-footer"><span id="resultsCount" role="status" aria-live="polite"></span><span>Counts use each product’s pack size.</span></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <dialog id="productDialog" aria-labelledby="productDialogTitle"><form id="productForm"><div class="dialog-heading"><h2 id="productDialogTitle">Add product</h2><button type="button" class="dialog-close" id="closeProductDialog" aria-label="Close">×</button></div><div class="product-fields"><label class="full-field">Product name<input name="name" required maxlength="150"/></label><label>SKU<input name="sku" required maxlength="80"/></label><label>Category<input name="category" required list="categoryOptions" maxlength="80"/></label><label>On hand<input name="quantity" type="number" min="0" step="1" required/></label><label>Pack size<select name="unit"><option>units</option><option>cases</option><option>bags</option><option>packs</option><option>boxes</option></select></label><label>Unit cost ($)<input name="unitCost" type="number" min="0" step="0.01" required/></label><label>Minimum stock<input name="reorderPoint" type="number" min="0" step="1" required/></label><label class="full-field">Shelf location<input name="location" maxlength="100"/></label></div><p class="form-error" id="productError" role="alert"></p><p class="form-note">Saved in this browser. Export a copy for your records.</p><div class="dialog-actions"><button class="action-btn" type="button" id="cancelProductDialog">Cancel</button><button class="primary-btn" type="submit">Save product</button></div></form></dialog>
+  <dialog id="importDialog" aria-labelledby="importTitle"><div class="dialog-heading"><h2 id="importTitle">Import your inventory</h2><button class="dialog-close" id="closeImportDialog" aria-label="Close">×</button></div><p>Choose a CSV file with your store’s stock list. It will replace the current list.</p><p class="form-note">Required columns: <code>sku, name, quantity</code>. You can also add category, unit, unitCost, reorderPoint, and location.</p><button class="text-btn" id="templateBtn">Download a blank CSV template</button><label class="file-label">Stock list<input type="file" id="inventoryFile" accept=".csv,text/csv"/></label><p id="importError" class="form-error" role="alert"></p><div class="dialog-actions"><button class="action-btn" id="cancelImportDialog">Cancel</button><button class="primary-btn" id="confirmImportBtn">Import inventory</button></div></dialog>
+  <datalist id="categoryOptions"></datalist><div class="inventory-toast" id="inventoryToast" role="status" aria-live="polite"></div>
+  <script type="module" src="inventory.js"></script>
+</body></html>

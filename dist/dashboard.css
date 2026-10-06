@@ -1,0 +1,138 @@
+/* StockSense: a quiet, work-first interface for store operations. */
+:root{--ink:#222824;--muted:#68716b;--line:#e1e5df;--canvas:#f6f7f4;--surface:#fff;--nav:#fff;--mint:#397451;--mint-dark:#326247;--gold:#8d9684;--radius:6px}
+body{font-family:"Segoe UI",Arial,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body .app{grid-template-columns:216px minmax(0,1fr)}
+body aside{background:#fff;color:var(--ink);border-right:1px solid var(--line);padding:30px 16px;gap:32px;position:sticky;top:0;height:100vh}
+body .brand{color:var(--ink);font-size:20px;font-weight:650;letter-spacing:-.6px;padding:0 12px;gap:9px}
+body .brand-mark{background:var(--ink);color:white;border-radius:4px;width:27px;height:27px;font-size:16px;font-weight:600}
+body .store{border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:none;border-radius:0;padding:18px 12px}
+body .store b{color:var(--ink);font-size:13px;font-weight:600;margin:4px 0}
+body .store span{color:var(--muted);font-size:12px}
+body .eyebrow{color:var(--muted);font-size:10px;letter-spacing:.08em;font-weight:600}
+body nav{gap:4px}
+body nav a{color:#59625b;font-size:13px;font-weight:500;padding:10px 12px;border-radius:4px;gap:10px}
+body nav a:hover{color:var(--ink);background:#f4f5f2}
+body nav a.active{color:var(--mint-dark);background:#edf2ec;font-weight:600;box-shadow:inset 2px 0 var(--mint-dark)}
+body .navicon{display:flex;align-items:center;width:16px}
+body .navicon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+body .sidebar-note{border-color:var(--line);padding:18px 12px 0;color:var(--muted);font-size:11px}
+body .sidebar-note b{color:var(--ink);font-size:12px;font-weight:500}
+body main{max-width:1480px;padding:36px 40px 48px;margin:0 auto}
+body .topbar{align-items:center;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+body h1{font-size:29px;line-height:1.2;letter-spacing:-.7px;font-weight:600;margin:7px 0 7px}
+body .sub{font-size:13px;color:var(--muted)}
+body .topbar .eyebrow{color:var(--muted)!important}
+body .date{font-size:12px}
+body .action-btn{font-size:12px;font-weight:600;background:white;border:1px solid #cbd2c9;color:var(--ink);border-radius:4px;padding:9px 12px;white-space:nowrap}
+body .action-btn:hover{background:#edf2ec}
+body .action-btn:disabled{opacity:.6;cursor:wait}
+body .signal{display:none}
+body .metrics{gap:0;border:1px solid var(--line);border-radius:6px;background:white;margin-bottom:28px}
+body .metric{border:0;border-right:1px solid var(--line);background:none;border-radius:0;padding:19px 24px}
+body .metric:last-child{border-right:0}
+body .metric-label{font-size:12px;font-weight:400}
+body .metric-value{font-size:25px;font-weight:550;letter-spacing:-.6px;font-variant-numeric:tabular-nums;margin:7px 0}
+body .metric-foot,body .metric-foot.warn{font-size:11px;color:var(--muted);font-weight:400}
+body .panel{border-radius:6px;border-color:var(--line);box-shadow:none}
+body h2{font-size:15px;letter-spacing:-.2px;font-weight:600;margin-bottom:5px}
+body .panel-note{font-size:12px;line-height:1.6}
+body .panel-pad{padding:20px 22px}
+body .workspace{grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+body .recommendations{margin-top:0}
+body .recommendations .panel-pad{padding:20px 22px!important}
+body .table-head,body .recommendation{grid-template-columns:minmax(155px,1.6fr) .8fr .9fr 56px;gap:14px}
+body .table-head{padding:11px 22px;background:#f7f8f5;border-top:1px solid var(--line);font-size:10px;color:#707870;letter-spacing:.04em;font-weight:500}
+body .recommendation{padding:16px 22px;border-top:1px solid #eceee8;min-height:78px}
+body .recommendation:hover{background:#fafbf8}
+body .item{font-size:13px;font-weight:550}
+body .sku{font-size:11px;margin-top:3px}
+body .stock{font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
+body .order{font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+body .order small{font-size:10px;font-weight:400;color:var(--muted)}
+body .badge{border-radius:3px;background:#f0f2ed;color:#596451;font-size:10px;font-weight:500;padding:3px 7px;white-space:nowrap}
+body .demo{display:inline-block;background:#f2f3ef;color:#68716b;font-size:10px;font-weight:400;border-radius:3px;padding:1px 5px}
+body .why-btn{border:0;border-radius:3px;padding:5px 0;background:none;color:var(--mint-dark);font-weight:500;font-size:12px;cursor:pointer}
+body .why-btn:hover{background:none;color:#1d4230;text-decoration:underline}
+body .outlook{margin-bottom:28px;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;overflow:visible}
+body .outlook-toolbar{padding:0 0 16px;align-items:center}
+body .outlook-toolbar h2{font-size:14px}
+body .season{padding:7px 10px;border-radius:4px;border-color:#d5dbd1;font-size:12px;cursor:pointer}
+body .signal-grid{gap:0;padding:0 0 18px;grid-template-columns:repeat(4,minmax(0,1fr))}
+body .signal-card{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:0 18px;display:flex;flex-direction:column;align-items:start}
+body .signal-card:first-child{padding-left:0;border:0}
+body .signal-card:last-child{padding-right:0}
+body .signal-label{color:var(--muted);font-size:10px;letter-spacing:.03em;font-weight:500}
+body .signal-card h3{font-weight:600;font-size:13px;margin:8px 0 2px}
+body .signal-card p{font-size:12px;margin:4px 0 12px;line-height:1.6}
+body .signal-card a,body .signal-card button{margin-top:auto;font-size:11px}
+body .signal-card a{color:var(--mint-dark);text-decoration:none}
+body .signal-card a:hover{text-decoration:underline}
+body .source-note{padding:0 0 16px;font-size:10px;color:#727b72}
+body .right-stack{display:flex;flex-direction:column;gap:24px}
+body .order-card{background:white;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:22px}
+body .order-card .eyebrow{color:var(--muted);font-size:10px}
+body .order-card h2{font-size:17px;margin:7px 0}
+body .order-card p{color:var(--muted);font-size:12px;line-height:1.6;margin:0 0 22px}
+body .order-list{gap:0;margin-bottom:22px}
+body .order-line{padding:11px 0;border-bottom:1px solid #eceee8;font-size:12px;align-items:center}
+body .order-line span{color:var(--muted);max-width:175px}
+body .order-line b{font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
+body .order-total{align-items:center;margin:20px 0;font-size:11px;color:var(--muted)}
+body .order-total b{font-size:24px;color:var(--ink);font-weight:550;letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+body .order-card button{background:var(--mint-dark);color:white;border-radius:4px;font-size:12px;font-weight:500;padding:10px}
+body .order-card button:hover{background:#254f38}
+body .lunch-plan{background:#f0f3eb;border:0;border-left:3px solid #82956d;border-radius:0;padding:17px 20px;margin:20px 0 24px}
+body .lunch-plan .eyebrow{color:#596451!important;font-size:10px}
+body .lunch-plan b{display:block;font-size:13px;font-weight:600;margin-top:5px}
+body .lunch-plan p{font-size:12px;color:var(--muted);margin:5px 0}
+body #insights{margin-top:24px}
+body .chart{height:150px;margin-top:20px}
+body .chart-key{margin-top:15px;font-size:11px}
+body .key i{background:#5b7860}
+body .key i.dashed{background:repeating-linear-gradient(to right,#929a8b 0 4px,transparent 4px 7px)}
+body #forecastLine{stroke:#5b7860;stroke-width:2}
+body #forecastFill{opacity:.25}
+body .area>path:last-child{stroke:#929a8b;stroke-width:1.5}
+body .risk-list{padding:0 22px 12px}
+body .risk{gap:10px;padding:16px 0;border-color:#eceee8}
+body .risk-icon{background:#f2f4ef;color:#74816c;border-radius:4px;width:25px;height:25px;flex-basis:25px;font-size:13px}
+body .risk b{font-size:12px;font-weight:550}
+body .risk p{font-size:11px;line-height:1.6}
+body dialog{border-radius:8px;max-width:480px;padding:26px;border-color:var(--line);box-shadow:0 12px 48px #17271925}
+body dialog::backdrop{background:#1c251b66}
+body dialog h2{font-size:22px;font-weight:600;letter-spacing:-.4px}
+body dialog .close{border-radius:4px;background:#f2f4ef;color:var(--muted)}
+body .reason-total{background:#f0f3eb;border-radius:4px;font-size:13px;padding:14px 16px}
+body .reason{padding:15px 0;border-color:#eceee8}
+body .reason b{font-size:12px;font-weight:600}
+body .reason p{font-size:13px;line-height:1.6}
+body .why-source{font-size:11px}
+body .toast{background:#29372b;border-radius:4px;font-size:12px;font-weight:400;box-shadow:0 5px 20px #19271920}
+body button:focus-visible,body select:focus-visible,body a:focus-visible{outline:2px solid var(--mint-dark);outline-offset:3px}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+@media(min-width:1600px){body main{padding:40px 56px}}
+@media(max-width:1180px){body main{padding:28px 24px}body .workspace{grid-template-columns:minmax(0,1fr) 260px;gap:18px}body .table-head,body .recommendation{grid-template-columns:minmax(120px,1.5fr) .8fr .9fr 45px;gap:8px}body .metric{padding:18px}body .signal-card{padding:0 12px}}
+@media(max-width:1000px){body .app{grid-template-columns:180px minmax(0,1fr)}body aside{display:flex;padding:24px 10px}body .workspace{grid-template-columns:1fr}body .right-stack{display:grid;grid-template-columns:1fr 1fr}body .metrics{grid-template-columns:repeat(4,1fr)}body .metric{padding:16px 12px}body .metric-value{font-size:21px}body .signal-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}body .signal-card:nth-child(3){padding-left:0;border:0}body .signal-card:nth-child(2){padding-right:0}}
+@media(max-width:700px){body .app{display:block}body aside{position:static;height:auto;display:flex;padding:16px 18px;gap:14px;border-right:0;border-bottom:1px solid var(--line)}body .brand{padding:0}body .store,body .sidebar-note{display:none}body nav{display:flex;gap:4px;overflow-x:auto}body nav a{padding:7px 10px;font-size:11px;white-space:nowrap}body .navicon{display:none}body main{padding:24px 18px}body .topbar{display:flex;gap:12px;align-items:start;margin-bottom:22px}body h1{font-size:25px}body .actions{margin:4px 0 0}body .action-btn{font-size:11px;padding:8px}body .date{display:none}body .metrics{grid-template-columns:1fr 1fr;margin-bottom:24px}body .metric:nth-child(2){border-right:0}body .metric:nth-child(-n+2){border-bottom:1px solid var(--line)}body .metric{padding:16px}body .right-stack{grid-template-columns:1fr}body .outlook-toolbar{align-items:start;gap:10px}body .outlook-toolbar h2{font-size:13px}body .season{max-width:145px;font-size:11px}body .recommendation,body .table-head{grid-template-columns:minmax(115px,1.4fr) .75fr .8fr;gap:8px;padding-left:16px;padding-right:16px}body .recommendation>*:last-child{display:block;grid-column:1/-1;padding:0}body .table-head>*:last-child{display:none}body .item{font-size:12px}body .stock{font-size:11px}body .recommendations .panel-pad{padding:18px 16px!important}body .recommendations .badge{display:none}body .panel-pad{padding:18px 16px}body .signal-label{font-size:9px}body .signal-card h3{font-size:12px}body .signal-card p{font-size:11px}body .signal-card{padding:0 12px}body .source-note{line-height:1.6}body .lunch-plan{padding:14px 16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body .toast{transition:none}}
+
+/* Shared shell, following the supplied dashboard reference. */
+:root{--canvas:#f7f9fb;--line:#e3e7ec;--ink:#202730;--muted:#77818c;--mint-dark:#008b52}
+body aside{background:#0d0f0e;border-right-color:#1b201d;color:#d1d7d3}
+body .brand{color:#f7f9f7;font-size:19px}
+body .brand-mark{background:#00985c;color:white;border-radius:7px}
+body .store{border-color:#222825}
+body .store b{color:#e0e6e2}
+body .store span,body aside .eyebrow{color:#747f78}
+body nav a{color:#929b95;font-size:12px}
+body nav a:hover{background:#191d1a;color:#f0f4f1}
+body nav a.active{color:#29b777;background:#1a211c;box-shadow:none}
+body .sidebar-note{border-color:#232824;color:#747f78}
+body .sidebar-note b{color:#c7d0c9}
+body .metrics{background:none;border:0;gap:14px}
+body .metric{background:white;border:1px solid var(--line);border-radius:8px;box-shadow:0 1px 2px #172b4010}
+body .metric:last-child{border-right:1px solid var(--line)}
+body .panel,body .order-card{border-radius:8px;box-shadow:0 1px 2px #172b4010}
+body .topbar{border:0;padding-bottom:0}
+body .outlook{border-radius:0;box-shadow:none}
+@media(max-width:700px){body .metric:nth-child(-n+2){border-bottom:1px solid var(--line)}body .metric:nth-child(2){border-right:1px solid var(--line)}}
