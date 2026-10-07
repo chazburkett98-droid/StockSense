@@ -7,14 +7,17 @@ const memory=new Map();
 function boot(){
   const nodes=new Map();
   function get(selector){if(!nodes.has(selector))nodes.set(selector,{textContent:'',innerHTML:'',handlers:{},addEventListener(type,fn){this.handlers[type]=fn;},reset(){},showModal(){this.open=true;},close(){this.open=false;}});return nodes.get(selector);}
-  const context={sampleInventory,validateItem,stockStatus,document:{querySelector:get},localStorage:{getItem:key=>memory.get(key)||null,setItem:(key,value)=>memory.set(key,value)},FormData:class{constructor(form){return new Map(Object.entries(form.fields));}}};
+  const context={window:{addEventListener(){}},sampleInventory,validateItem,stockStatus,document:{querySelector:get},localStorage:{getItem:key=>memory.get(key)||null,setItem:(key,value)=>memory.set(key,value)},FormData:class{constructor(form){return new Map(Object.entries(form.fields));}}};
   vm.runInNewContext(source,context);return get;
 }
 let get=boot();
 assert.match(get('#prepRows').innerHTML,/Make 15 turkey sandwiches/);
 assert.match(get('#prepRows').innerHTML,/Make 4 fresh fruit cups/);
 assert.equal(get('#prepMetric').textContent,2);
-assert.equal(get('#buyMetric').textContent,2);
+assert.equal(get('#buyMetric').textContent,3);
+assert.match(get('#buyRows').innerHTML,/Turkey sandwich/);
+assert.match(get('#buyRows').innerHTML,/stock-empty/);
+assert.match(get('#buyRows').innerHTML,/stock-status/);
 assert.match(get('#buyRows').innerHTML,/Compare delivery/);
 assert.doesNotMatch(get('#buyRows').innerHTML,/type="checkbox"/);
 get('#prepRows').handlers.change({target:{dataset:{task:'sandwich'},checked:true}});

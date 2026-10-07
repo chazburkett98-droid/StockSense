@@ -1,9 +1,5 @@
-import { copyFile, mkdir } from 'node:fs/promises';
-
-await mkdir(new URL('../dist/', import.meta.url), { recursive: true });
-await copyFile(new URL('../index.html', import.meta.url), new URL('../dist/index.html', import.meta.url));
-await copyFile(new URL('../signals.js', import.meta.url), new URL('../dist/signals.js', import.meta.url));
-await copyFile(new URL('../dashboard.css', import.meta.url), new URL('../dist/dashboard.css', import.meta.url));
-for (const file of ['inventory.html','inventory.js','inventory.css','inventory-data.mjs','market.css','suppliers.html','suppliers.js','supplier-data.mjs']) {
-  await copyFile(new URL('../' + file, import.meta.url), new URL('../dist/' + file, import.meta.url));
-}
+﻿import {copyFile,mkdir,writeFile} from 'node:fs/promises';
+await mkdir(new URL('../dist/',import.meta.url),{recursive:true});
+for(const file of ['index.html','workspace.js','workspace.css','stock-model.mjs','insights-view.mjs'])await copyFile(new URL('../'+file,import.meta.url),new URL('../dist/'+file,import.meta.url));
+for(const [file,page] of [['inventory.html','inventory'],['suppliers.html','suppliers'],['checkout.html','sales']])await writeFile(new URL('../dist/'+file,import.meta.url),'<!doctype html><html lang="en"><meta charset="utf-8"><title>Stock Sense</title><meta http-equiv="refresh" content="0;url=./index.html#app/'+page+'"><a href="./index.html#app/'+page+'">Open Stock Sense</a></html>');
+console.log('Built Stock Sense into dist/');

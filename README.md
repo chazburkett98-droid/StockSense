@@ -1,23 +1,65 @@
-# Bargetown Market · StockSense
+﻿# Stock Sense
 
-Open `index.html` in the project root to access the page from Ship Studio's files.
+A working inventory and order-management MVP for a neighborhood convenience store. The existing dependency-free HTML/JavaScript application structure is retained; the new interface uses a shared domain model and browser persistence.
 
-Ship Studio manages the dev server at http://localhost:3000 using the `dev` script.
-For manual development outside Ship Studio, run `npm.cmd run dev` on Windows.
-Run `npm.cmd run build` to copy the page into `dist` for hosting.
+## Run
 
-The mockup is personalized for Bargetown Market, 330 Main Street, Evansville, Indiana 47708. Overview shows two practical lists: daily in-store prep with completion checkboxes, and low-stock products with delivery-comparison links. Owners can add their own prep tasks. Checkmarks and custom prep tasks are saved per local calendar day in this browser. Completing prep tracks the task only; it does not automatically change inventory quantities.
+- `npm.cmd run dev` starts the local app at http://localhost:3000.
+- Open `/` for the public landing page; choose **Explore the demo** to open the workspace at `/#app/overview`.
+- `npm.cmd run build` creates the static application in `dist/`.
+- `npm.cmd install` installs the development test dependency. The app itself has no runtime package dependencies.
+- `npm.cmd test` runs domain and DOM-based interface tests.
 
-Default sandwich and fruit-cup targets are sample lunch plans, not actual sales forecasts or a verified menu. Imported inventory drives on-hand counts and restock alerts. The former weather, tariff, commodity, and seasonal-chart panels have been removed to simplify the workspace.
+The old Inventory, Suppliers, and Checkout URLs redirect to the corresponding workspace pages. Older Bargetown prototype files remain in the repository for reference and are not part of the current application.
 
-Run `node scripts/check-signals.mjs` to verify prep completion, undo, task persistence, custom tasks, and inventory-driven restock links.
+## Working capabilities
 
-`suppliers.html` compares Walmart, Sam’s Club, and Gordon Food Service options listed for Evansville by their official websites. Exact delivery to the market, product availability, live prices, and time slots are not connected or preverified. Users enter a quote and confirm address eligibility. Complete confirmed quotes rank by requested quantity (or supplier minimum quantity, if larger) times price per matching unit/pack, plus entered delivery fee. Sorting supports lowest total cost and fastest delivery. Tax, tips, and membership costs are excluded. Checkout takes place on the supplier website; the app never submits or marks an order placed.
+- Overview: derived inventory value at cost, product and low-stock counts, open sales orders, 14-day fulfilled-sales and stock-movement charts, accessible daily data tables, alerts, recent orders, activity, and quick actions.
+- Inventory: product search, category/supplier/location/status filters, sorting, add/edit products, location-level quantities, movement history, reason-required physical count adjustments, and CSV export.
+- CSV import: file parsing, field mapping, validation, a 10-row preview, and explicit confirmation. SKU/name/quantity are required. Optional location names must match Settings; otherwise the selected default location is used. Matching SKUs update product details and physical counts at the chosen locations. Duplicate SKU/location rows, unknown locations, invalid quantities/prices, and counts below reservations are rejected. Unmapped optional prices retain existing values. No partial import is saved when validation fails.
+- Sales: customer/location/line-item order creation and exact integer-cent totals. Draft orders can be confirmed, fulfilled, or cancelled through the allowed status transitions. Confirmation reserves location-specific stock; fulfillment deducts it and releases the reservation; cancellation releases reservations. Completed/cancelled orders cannot be fulfilled again.
+- Purchasing: supplier/location/line-item purchase orders, expected dates, ordered/received/outstanding quantities, partial receiving, and dated receipts. Unique delivery references prevent duplicate receiving; over-receiving is blocked. Inventory is valued at the current product unit cost; purchase costs do not automatically recalculate unit costs.
+- Customers and Suppliers: searchable, editable contact records and related orders.
+- Insights: fulfilled-unit rankings, no-sales inventory, sales-based stock coverage, and restock suggestions with explicit formulas and data thresholds. Recommendations are transparent rules, not AI predictions.
+- Settings: business name, display currency, locations, and default reorder point for new products. Currency changes relabel amounts without converting them. Existing locations can be renamed and new ones added. Demo backup download and confirmed reset work.
 
-The optional example-quote mode is explicitly labeled and never saves example prices over real quotes. Quotes are local browser records, not automatically refreshed supplier offers. Run `node scripts/check-suppliers.mjs` for comparison totals, fee handling, supplier minimum quantities, delivery sorting, and example-mode labeling.
+## Inventory model
 
-Inventory is a separate page at `inventory.html`. It shows the full product list, stock counts, category totals, costs, shelf locations, and low-stock status. Search and filters only change the list; summary cards always reflect the whole store. Add/edit products or replace the starter sample inventory with a CSV import. Records persist in this browser using localStorage; export CSV for a portable copy. This is local storage, not a shared store database or live POS connection.
+`stock-model.mjs` is the shared data layer. `stock()` calculates:
 
-CSV headers: `sku,name,category,quantity,unit,unitCost,reorderPoint,location`. SKU, name, and quantity are required. Stock counts and minimum stock must be nonnegative whole numbers. SKU values must be unique. Unit cost is the cost of one listed unit/pack; inventory value is quantity times unit cost.
+- **On hand:** physical quantities by product/location.
+- **Reserved:** line quantities on confirmed, unfulfilled sales orders.
+- **Available:** on hand minus reserved.
+- **Incoming:** ordered minus received purchase quantities.
 
-Run `node scripts/check-inventory.mjs` for import validation, filtering, stock status, and value calculations.
+Every opening count, adjustment, receipt, fulfillment, and reservation change has a dated movement with its reason, location, and related order where applicable. Monetary amounts are stored as integer cents. Inventory value is on hand times current unit cost; reserved units remain part of physical inventory value.
+
+Commands operate on a cloned state, validate the whole operation, then save one complete browser-storage record. Submission tokens make repeated submissions idempotent. Web Locks serialize commits across tabs on supported browsers. A storage write failure does not update the visible committed state. This is demo-level device persistence, not a production transaction system.
+
+## Persistence and demo data
+
+The current workspace is stored in `localStorage` under `stocksense.workspace.v3`. It seeds realistic example products, customers, suppliers, sales, a partial purchase, and movement history for **Bargetown Market**, with a sales floor and back stockroom. All headline metrics are calculated from those records. Demo contacts use example.com addresses and are not real customer records.
+
+Refreshing keeps changes in the same browser and origin. The legacy prototype's data is left separate; it is not silently migrated. **Settings → Reset demo data** explicitly confirms replacement of the current demo. **Download demo backup** exports the entire state as JSON for records; backup restoration is not implemented. Inventory CSV can be imported through the reviewed import flow.
+
+## Insight rules
+
+The observation period is the lesser of 28 days or days since the workspace's observation start. Only fulfilled sales count. Reliable stock-coverage estimates require at least 14 observed days and sales on three distinct days. Otherwise the interface says **Not enough data**.
+
+Daily rate = fulfilled units / observed days. Days remaining = available / daily rate. Restock target = larger of product reorder point or seven days of sales. Suggested order = ceiling(target - available - incoming), with a floor of zero. Without enough data, suggestions use only the reorder point. Stockouts and incomplete sales records can understate actual demand. Coverage recommendations combine locations; reservations and fulfillment enforce the chosen location's stock.
+
+## Verification
+
+`check-workspace.mjs` verifies the full workflow (add product, purchase, partial/full receiving, sales draft, reservation, fulfillment, movement history, inventory value, and persistent reload), plus cancellation, location-specific insufficient stock, duplicate receipt/submission handling, over-receiving, stock-adjustment reasons, cents totals, CSV validation/atomicity, and insight thresholds.
+
+`check-interface.mjs` uses Happy DOM to exercise the actual page renderers, forms, click handlers, product/purchase/receiving/sales flow, persistence, filters, contact editing, settings, CSV mapping/preview/confirmation, and reset confirmation. These are automated DOM tests, not a visual browser test. The Ship Studio web preview was inactive during verification, so screenshots and mobile browser rendering could not be inspected. Responsive CSS and keyboard-visible focus states are implemented.
+
+## Production infrastructure still required
+
+A shared database, authenticated users and roles, server-side inventory transactions, audit protection, durable backups, monitored deployment, and refund/return flows are needed before using this as a shared production system. POS/payments, ecommerce, accounting, and shipping are not connected. A future integration must verify provider events, map product identifiers, and enforce idempotency on the server. Browser storage may be cleared, is device-local, and must not be treated as shared inventory truth.
+
+## Bargetown personalization
+
+The sample catalog includes sandwiches, wraps, fruit cups, bottled water, soda, chips, chocolate, milk, orange juice, ice, bread, and paper towels. Products, prices, sales, supplier contacts, and purchase records are examples, not a verified live store catalog. Suppliers are illustrative and not connected.
+
+Existing untouched Harbor demo products and contacts are personalized on the next load. Custom products, custom names, stock counts, and user-created orders are preserved. The pre-personalization record is retained at `stocksense.workspace.v3.before-bargetown`. Reset seeds the Bargetown catalog.

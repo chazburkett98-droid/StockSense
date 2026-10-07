@@ -2,3 +2,66 @@ body .brand small{display:block;color:#748079;font-size:8px;letter-spacing:.1em;
 .quote-editor summary{font-size:11px;color:#6e8577;cursor:pointer;margin:14px 0}.quote-editor[open] summary{margin-bottom:16px}.quote-editor[open]{padding-bottom:6px}.prep-add-btn{border:0;background:none;color:#008b52;font-size:11px;padding:0;cursor:pointer}.prep-heading-actions{display:flex;gap:14px;align-items:center}.supplier-controls .supplier-quantity-note{font-size:10px;color:#87948c}
 @media(max-width:1100px){.quote-grid{grid-template-columns:1fr}.quote-fields{grid-template-columns:repeat(4,1fr)}.daily-layout{grid-template-columns:1fr}.daily-secondary{display:grid;grid-template-columns:1fr 1fr}.quote-result{min-height:0}.supplier-checkout{max-width:250px}}
 @media(max-width:700px){.daily-metrics{gap:8px;margin-top:18px}.daily-metrics article{padding:15px 12px}.daily-metrics b{font-size:26px}.daily-metrics span{font-size:10px}.daily-metrics small{font-size:9px}.daily-layout{gap:18px}.daily-secondary{display:flex}.prep-row,.buy-row{padding:17px 16px}.buy-row{align-items:start;gap:8px}.compare-btn{font-size:10px;padding:7px}.prep-copy b,.buy-row b{font-size:12px}.supplier-controls{flex-wrap:wrap;padding:14px;gap:10px}.supplier-controls label:first-child{flex-basis:100%}.supplier-controls label{flex:1}.supplier-controls input{width:100%}.supplier-controls select{max-width:100%}.quote-mode{align-items:start;line-height:1.7}.quote-fields{grid-template-columns:1fr 1fr}.quote-card{padding:18px}.quote-brand h2{font-size:14px}.overview-note{align-items:start;font-size:10px}.market-page .topbar .primary-btn{margin-top:14px}}
+/* White, blue and green workspace refresh. */
+body.market-page{--canvas:#f3f8fc;--ink:#173653;--muted:#5c7386;--line:#dce9f1;--mint-dark:#078858}
+body.market-page aside{background:#fff;border-color:#dce9f1;color:#173653}
+body.market-page .brand,body.market-page .store b,body.market-page .sidebar-note b{color:#173653}
+body.market-page .brand-mark{background:linear-gradient(135deg,#168be2,#08a36c);border-radius:10px}
+body.market-page .store,body.market-page .sidebar-note{border-color:#dce9f1}
+body.market-page .store span,body.market-page aside .eyebrow,body.market-page .brand small{color:#627e93}
+body.market-page nav a{color:#58718a;border-radius:10px}
+body.market-page nav a.active{color:#087c59;background:#e8f7f0}
+body.market-page nav a:hover{background:#edf6ff;color:#1478c4}
+body.market-page .utility-bar{background:#fff}
+.overview-page .topbar{padding:26px!important;background:linear-gradient(110deg,#e4f3ff,#effbf5);border:1px solid #d3e9f5!important;border-radius:22px;position:relative;overflow:hidden}
+.overview-page h1{font-size:32px;letter-spacing:-1px;color:#163f65}
+.overview-page .topbar .eyebrow{color:#1779bb!important}
+.overview-page .daily-metrics article{border-radius:18px;box-shadow:0 5px 20px #24609108;position:relative;overflow:hidden}
+.overview-page .daily-metrics article:after{content:'';position:absolute;right:-12px;top:-15px;width:70px;height:70px;border:14px solid #e6f4ff;border-radius:50%;pointer-events:none}
+.overview-page .daily-metrics b{color:#1377bf;font-size:36px}
+.overview-page .daily-metrics span{color:#345b77;font-weight:600}
+.overview-page .daily-metrics small{color:#5c7386}
+.overview-page .daily-metrics .restock-metric{background:#e9f8f0;border:2px solid #79cfa5}
+.overview-page .restock-metric b{color:#05794d}
+.overview-page .restock-metric a{display:block;position:relative;z-index:1}
+.overview-page .restock-metric:after{border-color:#c9efdb}
+.overview-page .inventory-panel{border-radius:20px;box-shadow:0 6px 24px #24609108;overflow:visible}
+.overview-page .section-heading h2{font-size:19px;font-weight:700;color:#173f61}
+.overview-page .section-heading p{color:#5c7386}
+.overview-page #prep{background:linear-gradient(140deg,#fff,#f0f8ff);border-color:#c9e4f8}
+.overview-page #prepRows{padding:0 16px 12px;display:grid;gap:12px}
+.overview-page .prep-row{border:1px solid #d5e8f6;background:white;border-radius:16px;padding:20px;box-shadow:0 4px 12px #297ab009;transition:transform .15s,box-shadow .15s}
+.overview-page .prep-row:hover{transform:translateY(-2px);box-shadow:0 8px 18px #297ab015}
+.overview-page .prep-art{display:grid;place-items:center;flex:0 0 56px;height:56px;background:#e5f3ff;border-radius:17px;font-size:29px}
+.overview-page .prep-row:nth-child(even) .prep-art{background:#e6f8ed}
+.overview-page .suggestion-label{display:block;color:#1485bd;font-size:10px;text-transform:uppercase;font-weight:700;letter-spacing:.08em;margin-bottom:4px}
+.overview-page .prep-copy b{font-size:15px;color:#214e70;font-weight:650}
+.overview-page .prep-copy small{color:#527487}
+.overview-page .is-done{background:#effaf3;border-color:#a9dfc0}
+.overview-page .is-done .suggestion-label{color:#098251}
+.overview-page .prep-add-btn{background:#e0f3e9;padding:8px 12px;border-radius:9px;font-weight:600}
+.overview-page #restock{border:2px solid #87cdb0;background:#fff;scroll-margin-top:24px}
+.overview-page #restock .section-heading{background:#eaf8f1;border-radius:18px 18px 0 0}
+.overview-page #buyRows{padding:8px 16px 16px}
+.overview-page .buy-row{margin-top:10px;border:1px solid #cce3f3;border-radius:14px;background:#f5faff;padding:16px;gap:12px}
+.overview-page .stock-empty{background:#eaf3ff;border:2px solid #78afe8}
+.overview-page .stock-symbol{display:grid;place-items:center;background:#d6ebfd;color:#126bad;width:36px;height:36px;border-radius:11px;font-size:22px;font-weight:800;flex-shrink:0}
+.overview-page .buy-copy{flex:1;min-width:0}
+.overview-page .stock-status{display:inline-block;background:#dcf3e6;color:#06764a;border-radius:6px;padding:3px 7px;font-size:10px;font-weight:750;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.overview-page .stock-empty .stock-status{background:#146fc2;color:#fff}
+.overview-page .buy-row b{color:#1b4668;font-size:14px;font-weight:650}
+.overview-page .buy-row small{color:#526f85;font-size:12px}
+.overview-page .buy-row strong{color:#185b8d}
+.overview-page .compare-btn{background:#fff;color:#087c54;border-color:#9dcfb8;border-radius:9px;font-weight:650}
+.overview-page .supplier-preview{background:linear-gradient(135deg,#137abe,#087d5d);color:white;border:0;border-radius:20px;position:relative;overflow:hidden}
+.overview-page .supplier-preview h2{font-size:23px;color:white}
+.overview-page .supplier-preview p,.overview-page .supplier-preview .eyebrow,.overview-page .supplier-names{color:#e0f5f5}
+.overview-page .supplier-preview .primary-btn{background:white;color:#096c60;border:0;border-radius:10px;font-weight:700}
+@media(max-width:700px){.overview-page .topbar{padding:20px!important}.overview-page h1{font-size:27px}.overview-page .prep-row{padding:14px;flex-wrap:wrap}.overview-page .prep-art{flex-basis:42px;height:46px;font-size:25px;border-radius:12px}.overview-page .prep-check{gap:10px}.overview-page .prep-copy b{font-size:13px}.overview-page .task-reason{margin-left:32px}.overview-page .buy-row{flex-wrap:wrap}.overview-page .compare-btn{margin-left:48px}.overview-page .daily-metrics article{padding:14px 10px}.overview-page .daily-metrics small{font-size:10px}.overview-page .daily-metrics article:after{display:none}.overview-page .prep-heading-actions{gap:8px;flex-wrap:wrap}.overview-page .section-heading{gap:10px}}
+@media(prefers-reduced-motion:reduce){.overview-page .prep-row{transition:none}.overview-page .prep-row:hover{transform:none}}
+.analytics-panel{margin-top:24px}
+#salesInsights{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;padding:0 20px 20px}
+.insight-card{padding:20px;background:linear-gradient(140deg,#f2f9ff,#f2fbf5);border:1px solid #cde6ed;border-radius:16px}
+.insight-card h3{margin:10px 0;font-size:17px;color:#174970}.insight-card p{font-size:12px;color:#526e84;line-height:1.7}.insight-action{padding:12px;background:white;border-radius:10px;color:#067b51;font-size:13px}.insight-card small{display:block;margin:12px 0;color:#607889;font-size:10px;line-height:1.6}.insight-card .text-link{display:inline-block;margin-top:8px;font-weight:700}
+.movement-card{margin:0 20px 14px;padding:16px;background:#f6faff;border:1px solid #d5e7f3;border-radius:14px}.movement-card>div{display:flex;justify-content:space-between;gap:10px}.movement-card p{display:flex;justify-content:space-between;gap:16px;margin:10px 0;color:#315b77;font-size:12px}.movement-card p span{color:#087c54;font-weight:650}.movement-card small{color:#718394;font-size:10px;overflow-wrap:anywhere}.scan-form{display:flex;gap:14px;padding:0 22px 22px;align-items:end}.scan-form label{display:flex;flex-direction:column;gap:8px;font-size:12px;color:#426b85}.scan-form label:first-child{flex:1}.scan-form input{padding:12px;border:1px solid #bcd7e8;border-radius:10px;width:100%;background:#f8fcff}.scan-form input[type=number]{max-width:100px}.checkout-status{margin:0;padding:18px 22px;color:#127653;font-weight:600;font-size:13px}
+@media(max-width:700px){.scan-form{flex-wrap:wrap;padding:0 16px 18px}.scan-form label:first-child{flex-basis:100%}.movement-card p{flex-direction:column;gap:4px}#salesInsights{padding:0 16px 16px}.movement-card{margin:0 16px 12px}}

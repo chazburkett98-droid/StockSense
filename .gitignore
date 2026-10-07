@@ -1,2 +1,4 @@
 # ShipStudio metadata
 .shipstudio/
+# Local development dependencies
+node_modules/

@@ -9,7 +9,7 @@ const colors=['#00965e','#119f9f','#2989cc','#d69b05','#8070bb','#607c9b'];
 const paths=['M3 5h14v12H3zM3 9h14M7 5V3h6v2','M10 2v16M14 5H8a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6H6','M10 3 2 17h16zM10 8v4M10 14h.01','M3 3h5v5H3zM12 3h5v5h-5zM3 12h5v5H3zM12 12h5v5h-5z'];
 let toastTimer;
 function toast(message){$('#inventoryToast').textContent=message;$('#inventoryToast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#inventoryToast').classList.remove('show'),3500);}
-function save(){try{localStorage.setItem(storageKey,JSON.stringify({items,isSample}));storageWarning=false;return true;}catch{storageWarning=true;return false;}}
+function save(){try{localStorage.setItem(storageKey,JSON.stringify({...JSON.parse(localStorage.getItem(storageKey)||'{}'),items,isSample}));storageWarning=false;return true;}catch{storageWarning=true;return false;}}
 function render(){
   const totals=summarize(items);
   $('#dataNote').innerHTML=`<span class="data-label">${isSample?'Sample inventory':'Your inventory'}</span><span>${isSample?'Import your stock list to see your actual store inventory.':'Saved in this browser. Export a copy for your records.'}${storageWarning?' Browser storage is unavailable; changes may not be saved.':''}</span>`;
@@ -63,3 +63,5 @@ $('#templateBtn').onclick=()=>download('sku,name,category,quantity,unit,unitCost
 $('#inventorySearch').addEventListener('input',renderRows);
 for(const selector of ['#categoryFilter','#statusFilter','#inventorySort'])$(selector).addEventListener('change',renderRows);
 render();
+
+window.addEventListener("storage",event=>{if(event.key!==storageKey)return;try{const saved=JSON.parse(localStorage.getItem(storageKey));if(saved?.items){items=saved.items.map(validateItem);isSample=!!saved.isSample;render();}}catch{toast("Could not read the updated inventory.");}});
